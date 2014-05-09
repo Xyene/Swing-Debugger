@@ -18,7 +18,7 @@ public class MemoryMonitorBar extends JProgressBar {
                     update();
                     try {
                         Thread.sleep(MemoryMonitorBar.this.sleepTime);
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException ignored) {
                     }
                 }
             }

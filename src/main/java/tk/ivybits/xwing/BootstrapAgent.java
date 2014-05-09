@@ -28,13 +28,9 @@ public class BootstrapAgent {
 
     public static void agentmain(String string, Instrumentation instrument) {
         System.out.println("Agent loaded!");
-        try {
-            SwingDebuggerFrame frame = new SwingDebuggerFrame();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
-            frame.setSize(new Dimension(780, 640));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SwingDebuggerFrame frame = new SwingDebuggerFrame();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setSize(new Dimension(780, 640));
     }
 }

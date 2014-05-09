@@ -34,11 +34,11 @@ public class SwingDebuggerFrame extends JFrame {
         }
     }
 
-    protected List<Window> tracked = new ArrayList<Window>();
-    protected JTree componentTree = new JTree();
-    protected JScrollPane echoPane = new JScrollPane();
+    protected final List<Window> tracked = new ArrayList<>();
+    protected final JTree componentTree = new JTree();
+    protected final JScrollPane echoPane = new JScrollPane();
 
-    public JScrollPane scrollable(Component c) {
+    JScrollPane scrollable(Component c) {
         JScrollPane jsp = new JScrollPane(c);
         jsp.setBorder(BorderFactory.createEmptyBorder());
         return jsp;
@@ -84,7 +84,7 @@ public class SwingDebuggerFrame extends JFrame {
     }
 
     protected <T extends Component> void trackComponent(TreeNode parent, T c) {
-        DefaultMutableTreeNode child = new ComponentTreeNode<T>(c);
+        DefaultMutableTreeNode child = new ComponentTreeNode<>(c);
         ((DefaultMutableTreeNode) parent).add(child);
         if (c instanceof Container) {
             for (Component ch : ((Container) c).getComponents()) {

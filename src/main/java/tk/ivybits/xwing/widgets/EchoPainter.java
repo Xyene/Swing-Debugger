@@ -2,6 +2,9 @@ package tk.ivybits.xwing.widgets;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -11,12 +14,53 @@ public class EchoPainter extends JPanel {
 
     public EchoPainter(final Component what) {
         this.what = what;
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+System.out.println(e);
+                what.dispatchEvent(e);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                what.dispatchEvent(e);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                what.dispatchEvent(e);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                what.dispatchEvent(e);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                what.dispatchEvent(e);
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                what.dispatchEvent(e);
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                what.dispatchEvent(e);
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                what.dispatchEvent(e);
+            }
+        });
     }
 
     @Override
     public void addNotify() {
         super.addNotify();
-
         TimerTask repaint = new TimerTask() {
             @Override
             public void run() {

@@ -50,7 +50,7 @@ public class AgentLoader {
      * @throws java.io.FileNotFoundException
      * @throws java.io.IOException
      */
-    public static File generateAgentJar(Class agent, Class... resources) throws IOException {
+    private static File generateAgentJar(Class agent, Class... resources) throws IOException {
         File jarFile = File.createTempFile("agent", ".jar");
         jarFile.deleteOnExit();
 

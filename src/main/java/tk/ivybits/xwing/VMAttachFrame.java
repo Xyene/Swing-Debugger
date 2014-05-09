@@ -7,10 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +14,7 @@ import java.util.Map;
 public class VMAttachFrame extends JFrame {
     public void reload() {
         vmpid.clear();
-        DefaultListModel n = new DefaultListModel();
+        DefaultListModel<String> n = new DefaultListModel<>();
         Map<Integer, LocalVirtualMachine> map = LocalVirtualMachine.getAllVirtualMachines();
         map.remove(Tools.getCurrentPID());
         for (Map.Entry<Integer, LocalVirtualMachine> machine : map.entrySet()) {
@@ -36,13 +32,14 @@ public class VMAttachFrame extends JFrame {
         vms.setSelectedValue(idx, true);
     }
 
-    private JList vms = new JList(new DefaultListModel());
-    private List<Integer> vmpid = new ArrayList<Integer>();
+    private final JList<String> vms = new JList<>(new DefaultListModel<String>());
+    private final List<Integer> vmpid = new ArrayList<>();
+    private final Thread poll;
 
     public VMAttachFrame() {
         super("Choose VM to attach to...");
         setLayout(new BorderLayout());
-        Thread poll = new Thread() {
+        poll = new Thread() {
             public void run() {
                 while (true) {
                     reload();
@@ -54,7 +51,6 @@ public class VMAttachFrame extends JFrame {
                 }
             }
         };
-        poll.start();
 
         vms.addMouseListener(new MouseAdapter() {
             @Override
@@ -72,6 +68,23 @@ public class VMAttachFrame extends JFrame {
 //            ((DefaultListModel) vms.getModel()).addElement(id.getName());
 //        }
         add(new JScrollPane(vms), BorderLayout.CENTER);
+        reload();
         pack();
     }
+
+    @Override
+    public void addNotify() {
+        super.addNotify();
+        poll.start();
+    }
+
+    @Override
+    public void removeNotify() {
+        super.removeNotify();
+        try {
+            poll.stop();
+        } catch (Throwable ignored) {
+        }
+    }
 }
+
