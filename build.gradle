@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = '1.7'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = 'tk.ivybits.xwing.SwingDebugger'
+
+dependencies {
+    compile files("${System.properties['java.home']}/../lib/tools.jar")
+    compile files("${System.properties['java.home']}/../lib/jconsole.jar")
+    testCompile 'junit:junit:4.11'
+}
