@@ -115,12 +115,12 @@
         <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
-            <version>1.4.2</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>com.sun</groupId>
             <artifactId>jconsole</artifactId>
-            <version>1.4.2</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 
