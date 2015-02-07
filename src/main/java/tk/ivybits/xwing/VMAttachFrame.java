@@ -14,7 +14,7 @@ import java.util.Map;
 public class VMAttachFrame extends JFrame {
     public void reload() {
         vmpid.clear();
-        DefaultListModel<String> n = new DefaultListModel<>();
+        final DefaultListModel<String> n = new DefaultListModel<>();
         Map<Integer, LocalVirtualMachine> map = LocalVirtualMachine.getAllVirtualMachines();
         map.remove(Tools.getCurrentPID());
         for (Map.Entry<Integer, LocalVirtualMachine> machine : map.entrySet()) {
@@ -26,10 +26,15 @@ public class VMAttachFrame extends JFrame {
             }
             n.addElement(base);
         }
-        Object idx = vms.getSelectedValue();
-        vms.setModel(n);
+        final Object idx = vms.getSelectedValue();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                vms.setModel(n);
 
-        vms.setSelectedValue(idx, true);
+                vms.setSelectedValue(idx, true);
+            }
+        });
     }
 
     private final JList<String> vms = new JList<>(new DefaultListModel<String>());

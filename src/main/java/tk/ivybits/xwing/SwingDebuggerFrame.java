@@ -111,7 +111,7 @@ public class SwingDebuggerFrame extends JFrame {
                     if (i == WindowEvent.WINDOW_OPENED) {
                         trackComponent((TreeNode) componentTree.getModel().getRoot(), window);
                         tracked.add(window);
-
+                        ((DefaultTreeModel) componentTree.getModel()).reload();
                     } else if (i == WindowEvent.WINDOW_CLOSING) {
                         tracked.remove(window);
                         Enumeration children = root.children();
@@ -123,9 +123,8 @@ public class SwingDebuggerFrame extends JFrame {
                                 break;
                             }
                         }
-
+                        ((DefaultTreeModel) componentTree.getModel()).reload();
                     }
-                    ((DefaultTreeModel) componentTree.getModel()).reload();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

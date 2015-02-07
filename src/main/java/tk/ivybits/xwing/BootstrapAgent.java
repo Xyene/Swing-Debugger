@@ -5,6 +5,7 @@ import tk.ivybits.agent.Tools;
 import tk.ivybits.xwing.widgets.EchoPainter;
 import tk.ivybits.xwing.widgets.MemoryMonitorBar;
 
+import javax.swing.*;
 import java.awt.*;
 import java.lang.instrument.Instrumentation;
 
@@ -28,9 +29,14 @@ public class BootstrapAgent {
 
     public static void agentmain(String string, Instrumentation instrument) {
         System.out.println("Agent loaded!");
-        SwingDebuggerFrame frame = new SwingDebuggerFrame();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setSize(new Dimension(780, 640));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                SwingDebuggerFrame frame = new SwingDebuggerFrame();
+                frame.setLocationRelativeTo(null);
+                frame.setVisible(true);
+                frame.setSize(new Dimension(780, 640));
+            }
+        });
     }
 }

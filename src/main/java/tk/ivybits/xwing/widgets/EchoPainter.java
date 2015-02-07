@@ -14,10 +14,11 @@ public class EchoPainter extends JPanel {
 
     public EchoPainter(final Component what) {
         this.what = what;
+        System.out.println("Echoing " + what);
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-System.out.println(e);
+                System.out.println(e);
                 what.dispatchEvent(e);
             }
 
@@ -64,11 +65,16 @@ System.out.println(e);
         TimerTask repaint = new TimerTask() {
             @Override
             public void run() {
-                Dimension size = what.getSize();
-                setSize(size);
-                setPreferredSize(size);
-                revalidate();
-                repaint();
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        Dimension size = what.getSize();
+                        setSize(size);
+                        setPreferredSize(size);
+                        revalidate();
+                        repaint();
+                    }
+                });
             }
         };
         repaintTimer.schedule(repaint, 10, 10);
@@ -86,8 +92,8 @@ System.out.println(e);
         if (what != null) {
             try {
                 if (what instanceof JFrame)
-                    ((JFrame) what).getRootPane().paint(g);
-                else what.paint(g);
+                    ((JFrame) what).getRootPane().printAll(g);
+                else what.printAll(g);
             } catch (Throwable ex) {
                 ex.printStackTrace();
             }
