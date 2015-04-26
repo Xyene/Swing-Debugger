@@ -31,7 +31,6 @@ public class VMAttachFrame extends JFrame {
             @Override
             public void run() {
                 vms.setModel(n);
-
                 vms.setSelectedValue(idx, true);
             }
         });
@@ -74,6 +73,8 @@ public class VMAttachFrame extends JFrame {
 //        }
         add(new JScrollPane(vms), BorderLayout.CENTER);
         reload();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(400, 200));
         pack();
     }
 
