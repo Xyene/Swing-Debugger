@@ -5,8 +5,8 @@ import tk.ivybits.agent.Tools;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +45,7 @@ public class VMAttachFrame extends JFrame {
         setLayout(new BorderLayout());
         poll = new Thread() {
             public void run() {
-                while (true) {
+                while (VMAttachFrame.this.isDisplayable()) {
                     reload();
                     try {
                         Thread.sleep(1000);
@@ -56,16 +56,18 @@ public class VMAttachFrame extends JFrame {
             }
         };
 
-        vms.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    int id = vmpid.get(vms.getSelectedIndex());
-                    System.out.println("Strapping on " + id);
-                    BootstrapAgent.loadAgent(id);
-                }
+        add(new JButton("Attach!") {
+            {
+                addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent x) {
+                        int id = vmpid.get(vms.getSelectedIndex());
+                        System.out.println("Strapping on " + id);
+                        BootstrapAgent.loadAgent(id);
+                    }
+                });
             }
-        });
+        }, BorderLayout.SOUTH);
 //        System.out.println(System.getProperty("java.io.tmpdir") + "hsperfdata_" + System.getProperty("user.name") + File.separatorChar);
 //        File[] list = new File(System.getProperty("java.io.tmpdir") + "hsperfdata_" + System.getProperty("user.name") + File.separatorChar).listFiles();
 //        for (File id : list) {
