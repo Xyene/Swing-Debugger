@@ -10,3 +10,5 @@ Attaches to a process and displays its component hierarchy as a tree to easily d
 An example with Jetbrain's PyCharm:
 
 ![Swing-Debugger on PyCharm](https://sc-cdn.scaleengine.net/i/611bba78a3fecd11decd8a5524669b14.png)
+
+You can grab a release from [here](https://github.com/Xyene/Swing-Debugger/releases).
